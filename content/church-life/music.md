@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 eleventyNavigation:
-  key: About
-  order: 3
+  key: Music
+  parent: Church Life
+  order: 1
 ---
-# About

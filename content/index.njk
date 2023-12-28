@@ -5,24 +5,32 @@ eleventyNavigation:
   order: 1
 numberOfLatestPostsToShow: 3
 ---
-{% set postsCount = collections.posts | length %}
-{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
+<div class = "hero-image"> </div>
 
-{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
-{% set postslistCounter = postsCount %}
-{% include "postslist.njk" %}
+<script>
+document.addEventListener('DOMContentLoaded', init, false);
+async function init() {
+console.log('test')
+	const today = new Date
+//get list of dates from events on page.
+//work out which are the 3 next coming up
+//only show those ones by sorting out class
+let arr = []
+document.querySelectorAll('[event-date]').forEach(d=>arr.push(d.getAttribute('event-date')))
+const futureDates = arr.map(d=>new Date(d) ).filter(d=>today <= d).map(d=>d.toISOString().slice(0,10))
+console.log({futureDates:futureDates.slice(0,1)})
+futureDates.slice(0,3).forEach(f=>
+document.querySelectorAll('[event-date="'+f+'"]').forEach(d=>d.removeAttribute('class','hidden'))
+)
+}
+</script>
 
-{% set morePosts = postsCount - numberOfLatestPostsToShow %}
-{% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="/blog/">the archive</a>.</p>
-{% endif %}
+<h1>Upcoming Events</h1>
+<div id="eventlist" > </div>
 
-{# List every content page in the project #}
-{#
-<ul>
-	{%- for entry in collections.all %}
-	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
-	{%- endfor %}
-</ul>
-#}
+
+{% set eventslist = events.items %}
+{{ events.filter | log }}
+{% include "eventslist.njk" %}
+
+
