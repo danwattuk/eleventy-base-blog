@@ -43,9 +43,35 @@
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
-				{%- for entry in collections.all | eleventyNavigation %}
-					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
-				{%- endfor %}
+{% set navPages = collections.all | eleventyNavigation %}
+
+{% macro renderNavListItem(entry) %}
+  {% if entry.children.length %}
+    <li class="nav-item">
+      <details
+        {%- for child in entry.children %}
+          {% if child.parent == entry.title and child.url == page.url %}
+            class="is-active"
+            open
+          {% endif %}
+        {% endfor %}
+      >
+        <summary>{{ entry.title }}</summary>
+        <ul role="list" class="nested-menu-float">
+          {%- for child in entry.children %}{{ renderNavListItem(child) }}{% endfor -%}
+        </ul>
+      </details>
+    </li>
+  {% else %}
+    <li class="nav-item" >
+      <a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page" {% endif %}>{{ entry.title }}</a>
+    </li>
+  {%- endif -%}
+{%- endmacro %}
+
+<ul class="nav-list" role="list">
+{%- for entry in navPages %}{{ renderNavListItem(entry) }}{%- endfor -%}
+</ul>
 				</ul>
 			</nav>
 		</header>
@@ -54,7 +80,14 @@
 			{{ content | safe }}
 		</main>
 
-		<footer></footer>
+		<footer>
+		<h3>Sunday Service 10.30AM - 12.30PM</h3>
+		<h3>34 West Street, Leek, Staffordshire, ST13 8AA</h3>
+		<h3>01538 370209</h3>
+		<a href="mailto:admin@thegatewaychurchatleek.uk">admin@thegatewaychurchatleek.uk</a>
+		<h3><a href="https://www.facebook.com/profile.php?id=100069923313544">Facebook</a></h3>
+		<h3><a href="https://podcasters.spotify.com/pod/show/helen-watt4" >Spotify</a></h3>
+		</footer>
 
 		<!-- Current page: {{ page.url | htmlBaseUrl }} -->
 	</body>

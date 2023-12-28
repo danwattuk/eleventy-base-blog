@@ -1,0 +1,11 @@
+{%- css %}.eventlist { counter-reset: start-from {{ (eventslistCounter or eventslist.length) + 1 }} }{% endcss %}
+<ol reversed class="eventlist">
+{% for event in eventslist | reverse %}
+	<li class="hidden" event-date = {{ event.fields.date.slice(0,10) }} >
+		<h2>{{ event.fields.title }}</h2>	
+		<h2>{{ event.fields.location }}</h2>
+		<h2>{{ event.fields.body }}</h2>
+		<h2>{{ event.fields.date.slice(0,10) }}</h2>
+		</li>
+{% endfor %}
+</ol>
