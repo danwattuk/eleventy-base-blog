@@ -5,3 +5,5 @@ eleventyNavigation:
   parent: Church Life
   order: 1
 ---
+
+Our weeknight bible study is a chance to go deeper into the Word of God.

@@ -3,7 +3,7 @@ layout: layouts/base.njk
 eleventyNavigation:
   key: Partnerships
   parent: About
-  order: 4
+  order: 3
 ---
 #  Partnerships
 
@@ -16,7 +16,7 @@ As a movement of churches we believe that Jesus is still working in His church t
 [Visit the AOG Website](http://www.aog.org.uk/)
 
 # Leek Foodbank
-
+{% image "./Foodbank.png", "Leek Foodbank",[500] %}
 The Leek and District Food Bank is based at the rear of The Gateway Church @ Leek and is open at the following times on Tuesday and Friday:
 
 10am to 12noon for receipt of food donations.
